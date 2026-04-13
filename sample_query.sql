@@ -62,6 +62,7 @@ SELECT
         WHEN 'GB' THEN 'Europe'
         WHEN 'DE' THEN 'Europe'
         WHEN 'IN' THEN 'Asia'
+        WHEN 'PK' THEN 'Asia'
         ELSE 'Other'
     END AS region_name
 
