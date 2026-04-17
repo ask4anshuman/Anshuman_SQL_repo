@@ -51,6 +51,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r sql-doc-tool/requirements.txt
 
+      - name: Validate GitHub token presence
+        env:
+          SQL_GITHUB_TOKEN: ${{ secrets.SQL_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$SQL_GITHUB_TOKEN" ]; then
+            echo "SQL_GITHUB_TOKEN is missing in workflow runtime"
+            exit 1
+          fi
+          echo "SQL_GITHUB_TOKEN is present"
+          
       - name: Generate/update sticky PR review comment
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
@@ -59,3 +69,4 @@ jobs:
           SQL_GITHUB_TOKEN: ${{ secrets.SQL_GITHUB_TOKEN }}
         run: |
           python sql-doc-tool/main.py --config .github/sql_confluence.yml --repo Anshuman_SQL_repo preview-pr --pr-number ${{ github.event.pull_request.number }}
+
