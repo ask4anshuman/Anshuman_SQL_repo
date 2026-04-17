@@ -1,0 +1,14 @@
+# Local environment
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# SQL doc tool cache file generated during publish
+.sql_confluence_cache.yml
+
+# Editor/system files
+.vscode/
+.DS_Store
+Thumbs.db

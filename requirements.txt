@@ -1,0 +1,3 @@
+# This repository does not run a local Python application.
+# SQL doc generation dependencies are installed from:
+# sql-doc-tool/requirements.txt (checked out in GitHub Actions).
