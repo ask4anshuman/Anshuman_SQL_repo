@@ -76,7 +76,7 @@ LEFT JOIN inventory.products AS p
 
 -- final filters
 WHERE ro.status_code IN ('S', 'D','P')
-  AND cp.country_code IN ('US','IN','PK')
+  AND cp.country_code IN ('CA')
   AND ol.quantity >= 1
 
 ORDER BY ro.order_date DESC, ro.order_id, p.product_name;
