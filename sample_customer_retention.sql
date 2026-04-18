@@ -68,7 +68,7 @@ LEFT JOIN order_stats AS os
 LEFT JOIN latest_order AS lo
     ON ec.customer_id = lo.customer_id
 WHERE COALESCE(os.completed_order_count, 0) >= 1
-  AND ec.country_code IN ('US', 'CA', 'GB', 'IN')
+  AND ec.country_code IN ('US')
 ORDER BY
     retention_status,
     os.lifetime_value DESC,
