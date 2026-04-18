@@ -79,13 +79,15 @@ jobs:
           python sql-doc-tool/main.py --config .github/sql_confluence.yml --repo Anshuman_SQL_repo publish-merged --pr-number "$PR_NUMBER"
 
       - name: Commit Confluence documentation links back to SQL files
+        env:
+          TARGET_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || github.event.pull_request.base.ref }}
         run: |
           git config user.name "sql-doc-bot"
           git config user.email "sql-doc-bot@noreply.github.com"
           git add -A -- '*.sql'
           if ! git diff --cached --quiet; then
             git commit -m "docs: add Confluence documentation links to SQL files [skip ci]"
-            git push
+            git push origin "HEAD:${TARGET_BRANCH}"
             echo "Committed Confluence links to SQL files."
           else
             echo "No SQL files changed by link injection, skipping commit."
