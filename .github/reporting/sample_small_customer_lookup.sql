@@ -6,5 +6,5 @@ SELECT
     c.last_name,
     c.email_address
 FROM crm.customers AS c
-WHERE c.is_active = 20000
+WHERE c.is_active = 200
   AND c.country_code = 'US';
