@@ -8,5 +8,5 @@ SELECT
     MAX(created_at) AS last_seen
 FROM staging.raw_orders
 GROUP BY order_id, customer_id, order_date
-HAVING COUNT(*) > 1
+HAVING COUNT(*) > 10
 ORDER BY occurrence_count DESC, order_date DESC;
