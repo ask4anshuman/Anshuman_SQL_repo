@@ -1,7 +1,7 @@
--- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2654209/SQL+Summary+-+sample_sales_summary.sql
 -- Sample SQL demonstrating:
 -- 1) Aggregation and grouping
 -- 2) Join logic across dimensions
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2654209/SQL+Summary+-+sample_sales_summary.sql
 -- 3) HAVING filters
 -- 4) Derived business metrics
 
@@ -48,7 +48,7 @@ GROUP BY
     s.store_name,
     ms.sales_month,
     cs.segment_name
-HAVING SUM(ms.total_amount) >= 50000
+HAVING SUM(ms.total_amount) >= 0
 ORDER BY
     ms.sales_month,
     s.store_name,
