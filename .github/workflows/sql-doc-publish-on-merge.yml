@@ -49,14 +49,10 @@ jobs:
             exit 1
           fi
 
-      - name: Checkout tool repository
-        uses: actions/checkout@v4
-        with:
-          repository: ask4anshuman/Code-Summarization-Project
-          path: sql-doc-tool
-          token: ${{ secrets.TOOL_REPO_TOKEN }}
-          fetch-depth: 1
-          clean: true
+      - name: Install sql-confluence-summarizer from release
+        run: |
+          python -m pip install --upgrade pip
+          pip install "git+https://github.com/ask4anshuman/Code-Summarization-Project.git@release/2026.04.18"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -76,14 +72,14 @@ jobs:
           SQL_GITHUB_TOKEN: ${{ secrets.SQL_GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.pr_number || github.event.pull_request.number }}
         run: |
-          python sql-doc-tool/main.py --config .github/sql_confluence.yml --repo Anshuman_SQL_repo publish-merged --pr-number "$PR_NUMBER"
+          sql-confluence-summarizer --config .github/sql_confluence.yml --repo Anshuman_SQL_repo publish-merged --pr-number "$PR_NUMBER"
 
       - name: Normalize Confluence link comments in SQL files
         run: |
-          python sql-doc-tool/main.py --config .github/sql_confluence.yml --repo Anshuman_SQL_repo normalize-confluence-links --line-number 4
+          sql-confluence-summarizer --config .github/sql_confluence.yml --repo Anshuman_SQL_repo normalize-confluence-links --line-number 4
 
       - name: Commit Confluence documentation links back to SQL files
         env:
           TARGET_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || github.event.pull_request.base.ref }}
         run: |
-          python sql-doc-tool/main.py --config .github/sql_confluence.yml --repo Anshuman_SQL_repo commit-confluence-links --target-branch "${TARGET_BRANCH}"
+          sql-confluence-summarizer --config .github/sql_confluence.yml --repo Anshuman_SQL_repo commit-confluence-links --target-branch "${TARGET_BRANCH}"
