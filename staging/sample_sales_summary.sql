@@ -1,6 +1,7 @@
 -- Sample SQL demonstrating:
 -- 1) Aggregation and grouping
 -- 2) Join logic across dimensions
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2654279
 -- 3) HAVING filters
 -- 4) Derived business metrics
 

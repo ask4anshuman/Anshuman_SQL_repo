@@ -1,6 +1,7 @@
 -- Sample SQL demonstrating:
 -- 1) Inventory threshold analysis
 -- 2) Multiple joins across inventory and supplier tables
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2588786
 -- 3) CASE-based alert classification
 -- 4) Aggregated restock recommendation output
 

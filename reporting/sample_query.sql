@@ -1,7 +1,7 @@
 -- Sample SQL demonstrating:
 -- 1) CTEs
 -- 2) Joins across tables
--- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/524308
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2588801
 -- 3) Filters
 -- 4) "Translation" of columns via aliases and CASE mappings
 

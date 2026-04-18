@@ -1,6 +1,7 @@
 -- Sample SQL demonstrating:
 -- 1) Multiple CTE transformations
 -- 2) Window functions
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2654263
 -- 3) LEFT joins and anti-churn logic
 -- 4) Final business classification output
 
