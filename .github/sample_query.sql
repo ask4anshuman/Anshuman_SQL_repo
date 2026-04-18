@@ -1,7 +1,7 @@
 -- Sample SQL demonstrating:
 -- 1) CTEs
 -- 2) Joins across tables
--- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/524308/SQL+Summary+-+sample_query.sql
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/524308
 -- 3) Filters
 -- 4) "Translation" of columns via aliases and CASE mappings
 
@@ -77,6 +77,6 @@ LEFT JOIN inventory.products AS p
 
 -- final filters
 WHERE ro.status_code IN ('D','P')
-  --AND cp.country_code IN ('CA','PK')
+  AND cp.country_code IN ('CA','PK')
   AND ol.quantity >= 1
 ORDER BY ro.order_date DESC, ro.order_id, p.product_name;
