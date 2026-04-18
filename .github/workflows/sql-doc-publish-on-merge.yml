@@ -83,9 +83,15 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import yaml
+          import os
 
           marker_prefix = "-- [Doc] Confluence:"
           updated = 0
+
+          # First, debug: list all SQL files in the repo
+          print("=== DEBUG: All SQL files in repository ===")
+          for sql_file in sorted(Path('.').rglob('*.sql')):
+            print(f"  Found SQL file: {sql_file}")
 
           config_path = Path('.github/sql_confluence.yml')
           if not config_path.exists():
@@ -119,12 +125,23 @@ jobs:
             print('Cache content is not a mapping; skipping fallback link injection.')
             raise SystemExit(0)
 
+          print(f"=== DEBUG: Cache file ({cache_path}) contains {len(cache)} entries ===")
           for file_key, page_id in cache.items():
+            print(f"  Cache entry: {file_key} -> {page_id}")
             sql_file = Path(str(file_key))
             if not sql_file.is_absolute():
               sql_file = Path('.') / sql_file
+            
+            print(f"    Resolved path: {sql_file}")
+            print(f"    Absolute: {sql_file.resolve()}")
+            print(f"    Exists: {sql_file.exists()}")
+            print(f"    Suffix: {sql_file.suffix} (is_sql: {sql_file.suffix.lower() == '.sql'})")
+            
             if not sql_file.exists() or sql_file.suffix.lower() != '.sql':
+              print(f"    -> SKIPPED")
               continue
+            
+            print(f"    -> PROCESSING")
 
             page_id_text = str(page_id).strip()
             if not page_id_text:
@@ -210,17 +227,28 @@ jobs:
         run: |
           git config user.name "sql-doc-bot"
           git config user.email "sql-doc-bot@noreply.github.com"
-          echo "Scanning for SQL file modifications..."
+          echo "=== Current Git Status ==="
           git status --short
-          echo "Current Confluence markers in SQL files:"
-          git grep -n "^-- \[Doc\] Confluence:" -- '*.sql' '**/*.sql' || true
+          echo ""
+          echo "=== Scanning for Confluence markers in SQL files ==="
+          git grep -n "^-- \[Doc\] Confluence:" -- '*.sql' '**/*.sql' || echo "No markers found"
+          echo ""
+          echo "=== Staging SQL files ==="
           git add -A -- '*.sql' '**/*.sql'
+          echo "=== Staged changes ==="
+          git diff --cached --name-only -- '*.sql' '**/*.sql' || echo "No SQL files staged"
+          
           if ! git diff --cached --quiet; then
-            echo "Staged SQL files:"
-            git diff --cached --name-only -- '*.sql' '**/*.sql'
+            echo ""
+            echo "=== Committing SQL files ==="
             git commit -m "docs: add Confluence documentation links to SQL files [skip ci]"
-            git push origin "HEAD:${TARGET_BRANCH}"
-            echo "Committed Confluence links to SQL files."
+            echo ""
+            echo "=== Pushing to branch: ${TARGET_BRANCH} ==="
+            git push origin "HEAD:${TARGET_BRANCH}" -v
+            echo "SUCCESS: Committed Confluence links to SQL files on ${TARGET_BRANCH}"
           else
-            echo "No SQL files changed by link injection, skipping commit."
+            echo ""
+            echo "INFO: No SQL file changes detected. Cache file may be empty or cache entries did not match existing files."
+            echo "Files that WOULD have been matched if they existed:"
+            echo "(This info comes from cache file if present)"
           fi
