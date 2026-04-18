@@ -2,7 +2,7 @@ name: SQL Doc Preview PR Comment
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, synchronize, reopened, edited, ready_for_review, converted_to_draft]
   workflow_dispatch:
     inputs:
       pr_number:
