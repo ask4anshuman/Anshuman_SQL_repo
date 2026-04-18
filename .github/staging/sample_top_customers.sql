@@ -8,7 +8,7 @@ SELECT
 FROM customers c
 JOIN orders o
     ON c.customer_id = o.customer_id
-WHERE o.order_date >= CURRENT_DATE - INTERVAL '300 days'
+WHERE o.order_date >= CURRENT_DATE - INTERVAL '30 days'
 GROUP BY c.customer_id, c.customer_name
 ORDER BY total_spent DESC
 LIMIT 5;
