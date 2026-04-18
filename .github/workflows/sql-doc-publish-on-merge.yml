@@ -177,6 +177,37 @@ jobs:
               sql_file.write_text(new_text, encoding='utf-8')
               updated += 1
               print(f'Injected/updated Confluence link in {sql_file}')
+              
+              # ALSO sync the marker to root-level and other matching SQL files
+              # e.g., if .github/sample_query.sql got updated, also update sample_query.sql at root
+              file_name = sql_file.name
+              print(f'    Syncing marker to other locations matching filename: {file_name}')
+              for other_sql in Path('.').rglob(file_name):
+                if other_sql == sql_file or other_sql.suffix.lower() != '.sql':
+                  continue
+                print(f'    Found matching file: {other_sql}')
+                other_text = other_sql.read_text(encoding='utf-8')
+                other_lines = other_text.splitlines()
+                
+                other_marker_index = None
+                for idx, line in enumerate(other_lines):
+                  if line.startswith(marker_prefix):
+                    other_marker_index = idx
+                    break
+                
+                if other_marker_index is None:
+                  other_lines.insert(0, marker_line)
+                else:
+                  other_lines[other_marker_index] = marker_line
+                
+                other_new_text = '\n'.join(other_lines)
+                if other_text.endswith('\n'):
+                  other_new_text += '\n'
+                
+                if other_new_text != other_text:
+                  other_sql.write_text(other_new_text, encoding='utf-8')
+                  updated += 1
+                  print(f'    Synced Confluence link to {other_sql}')
 
           print(f'Total SQL files updated with Confluence links: {updated}')
           PY
