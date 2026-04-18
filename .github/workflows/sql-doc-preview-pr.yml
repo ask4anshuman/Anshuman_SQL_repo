@@ -60,7 +60,6 @@ jobs:
       - name: Install tool dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r sql-doc-tool/requirements.txt
          
       - name: Generate/update sticky PR review comment
         env:
