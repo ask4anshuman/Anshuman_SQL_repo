@@ -56,5 +56,5 @@ SELECT
 	total_region_spend,
 	ROUND((annual_spend / NULLIF(total_region_spend, 0)) * 100, 2) AS pct_of_region_spend
 FROM ranked_customers
-WHERE is_active_flag = 1
+WHERE is_active_flag = 2
 ORDER BY region, spend_rank_in_region, customer_id;
