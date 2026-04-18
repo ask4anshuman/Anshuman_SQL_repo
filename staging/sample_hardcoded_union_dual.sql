@@ -1,6 +1,7 @@
 -- Sample: Enriched staging SQL using SELECT ... FROM DUAL and UNION ALL
 -- Purpose: Build hardcoded source rows and apply transformations used in staging checks.
 WITH seed_customers AS (
+-- [Doc] Confluence: https://ask4anshuman.atlassian.net/wiki/spaces/~712020e9a8b73325a347c490df3513526fcc64/pages/2588907
 	SELECT 'C001' AS customer_id, 'Alice' AS customer_name, 'ACTIVE' AS status, 'US' AS country_code, 1200 AS annual_spend FROM dual
 	UNION ALL
 	SELECT 'C002' AS customer_id, 'Bob' AS customer_name, 'INACTIVE' AS status, 'IN' AS country_code, 300 AS annual_spend FROM dual
