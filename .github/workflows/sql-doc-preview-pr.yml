@@ -60,5 +60,5 @@ jobs:
           CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
           SQL_GITHUB_TOKEN: ${{ secrets.SQL_GITHUB_TOKEN }}
         run: |
-          python sql-doc-tool/main.py --config .github/sql_confluence.yml preview-pr --pr-number ${{ github.event.pull_request.number }}
+          python sql-doc-tool/main.py --config .github/sql_confluence.yml preview-pr --repo Anshuman_SQL_repo --pr-number ${{ github.event.pull_request.number }}
 
