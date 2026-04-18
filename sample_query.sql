@@ -75,7 +75,7 @@ LEFT JOIN inventory.products AS p
     ON ol.product_id = p.product_id
 
 -- final filters
-WHERE ro.status_code IN ('S', 'D','P')
+WHERE ro.status_code IN ('S')
   AND cp.country_code IN ('CA','GB')
   AND ol.quantity >= 1
 
