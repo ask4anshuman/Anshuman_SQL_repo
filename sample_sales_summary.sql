@@ -47,7 +47,7 @@ GROUP BY
     s.store_name,
     ms.sales_month,
     cs.segment_name
-HAVING SUM(ms.total_amount) >= 100000
+HAVING SUM(ms.total_amount) >= 500
 ORDER BY
     ms.sales_month,
     s.store_name,
