@@ -76,7 +76,7 @@ WHERE p.is_discontinued = 0
   AND w.region_code IN ('EAST', 'CENTRAL', 'SOUTH')
   AND (
       ci.available_quantity < ci.reorder_point
-      OR COALESCE(rd.last_30_day_demand, 0) > 100
+      OR COALESCE(rd.last_30_day_demand, 0) > 10000
   )
 ORDER BY
     inventory_alert_status,
